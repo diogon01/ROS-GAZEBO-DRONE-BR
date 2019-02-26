@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+    <world name="default">
+
+        <!-- A global light source -->
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <!-- A ground plane -->
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+        <model name="velodyne_hdl-32">
+            <!-- Give the base link a unique name -->
+            <link name="base">
+
+                <!-- Offset the base by half the lenght of the cylinder -->
+                <pose>0 0 0.029335 0 0 0</pose>
+                <collision name="base_collision">
+                    <geometry>
+                        <cylinder>
+                            <!-- Radius and length provided by Velodyne -->
+                            <radius>.04267</radius>
+                            <length>.05867</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+
+                <!-- The visual is mostly a copy of the collision -->
+                <visual name="base_visual">
+                    <geometry>
+                        <cylinder>
+                            <radius>.04267</radius>
+                            <length>.05867</length>
+                        </cylinder>
+                    </geometry>
+                </visual>
+            </link>
+
+            <!-- Give the base link a unique name -->
+            <link name="top">
+
+                <!-- Vertically offset the top cylinder by the length of the bottom
+                    cylinder and half the length of this cylinder. -->
+                <pose>0 0 0.095455 0 0 0</pose>
+                <collision name="top_collision">
+                    <geometry>
+                        <cylinder>
+                            <!-- Radius and length provided by Velodyne -->
+                            <radius>0.04267</radius>
+                            <length>0.07357</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+
+                <!-- The visual is mostly a copy of the collision -->
+                <visual name="top_visual">
+                    <geometry>
+                        <cylinder>
+                            <radius>0.04267</radius>
+                            <length>0.07357</length>
+                        </cylinder>
+                    </geometry>
+                </visual>
+            </link>
+        </model>
+    </world>
+</sdf>
+
