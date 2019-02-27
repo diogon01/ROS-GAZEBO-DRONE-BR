@@ -7,6 +7,8 @@
 
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
+#include <gazebo/transport/transport.hh>
+#include <gazebo/msgs/msgs.hh>
 #include <thread>
 #include "ros/ros.h"
 #include "ros/callback_queue.h"
@@ -30,6 +32,15 @@ namespace gazebo {
         /// UM controller PID do joint
     private:
         common::PID pid;
+
+        ///@brief Um ponteiro do transporte Nodo
+    private:
+        transport::NodePtr node;
+
+        ///@brief Um assinante de um tópico nomeado
+    private:
+        transport::SubscriberPtr sub;
+
 
         /// Construtor da classe
     public:
@@ -78,9 +89,44 @@ namespace gazebo {
             this->model->GetJointController()->SetVelocityTarget(
                     this->joint->GetScopedName(), velocidade);
 
+            ///Criando o Nodo
+            this->node = transport::NodePtr(new transport::Node());
+
+#if GAZEBO_MAJOR_VERSION < 8
+
+            this->node->Init(this->model->GetWorld()->GetName());
+#else
+            this->node->Init(this->model->GetWorld()->Name());
+#endif
+            /// Criando o nome do topico
+            std::string nomeTopico = "~/" + this->model->GetName() + "/vel_cmd";
+
+            /// Assine o tópico e registre um retorno de chamada
+            this->sub = this->node->Subscribe(nomeTopico,
+                                              &VelodynePlugin::OnMsg, this);
+
+
+        }
+
+        /// @brief Ajusta a velocidade do velodyne dinamicamente
+        /// @param _vel Adiciona nova velocidade ao Velodine
+    public:
+        void SetarVelocidade(const double &_vel) {
+            /// Seta na junta(JOINT) a velocidade
+            this->model->GetJointController()->SetVelocityTarget(
+                    this->joint->GetScopedName(), _vel);
+        }
+
+        /// \brief Handle incoming message
+        /// \param[in] _msg Repurpose a vector3 message. This function will
+        /// only use the x component.
+    private:
+        void OnMsg(ConstVector3dPtr &_msg) {
+            this->SetarVelocidade(_msg->x());
         }
 
     };
+
     // Informe o Gazebo sobre este plugin, para que o Gazebo possa chamar o Load neste plugin.
     GZ_REGISTER_MODEL_PLUGIN(VelodynePlugin)
 }
