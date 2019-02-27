@@ -64,10 +64,19 @@ namespace gazebo {
             this->model->GetJointController()->SetVelocityPID(
                     this->joint->GetScopedName(), this->pid);
 
+
+            /// Atribuindo a velocidade como zero por default
+            double velocidade = 0;
+
+            /// Verifica se o elemento velocidade existe no arquivo e le o parametro
+            /// de velocidade
+            if (_sdf->HasElement("velocidade"))
+                velocidade = _sdf->Get<double>("velocidade");
+
             /// Defina a velocidade alvo da junta(JOINT). Esta velocidade alvo é apenas
             /// para fins de demonstração.
             this->model->GetJointController()->SetVelocityTarget(
-                    this->joint->GetScopedName(), 10.0);
+                    this->joint->GetScopedName(), velocidade);
 
         }
 
