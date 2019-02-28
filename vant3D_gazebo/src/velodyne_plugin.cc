@@ -23,6 +23,15 @@ namespace gazebo {
         /// Um nodo usado pelo ROS para transport
     private:
         std::unique_ptr<ros::NodeHandle> rosNode;
+        /// Um assinante do ROS
+    private:
+        ros::Subscriber rosSub;
+        /// Um callback da fila ROS que ajuda a processar mensagens
+    private:
+        ros::CallbackQueue rosRetornoFila;
+        /// Um thread continua rodando o rosQueue
+    private:
+        std::thread rosFilaThread;
         /// Ponteiro do modelo
     private:
         physics::ModelPtr model;
@@ -105,13 +114,57 @@ namespace gazebo {
             this->sub = this->node->Subscribe(nomeTopico,
                                               &VelodynePlugin::OnMsg, this);
 
+            if (!ros::isInitialized()) {
+                int argc = 0;
+                char **argv = NULL;
+                ros::init(argc, argv, "gazebo_client",
+                          ros::init_options::NoSigintHandler);
+            }
 
+            /// Crie o nosso nó(node) ROS. Isso age de maneira semelhante ao
+            /// o nó(node) Gazebo
+            this->rosNode.reset(new ros::NodeHandle("gazebo_client"));
+
+            /// Crie um tópico nomeado e assine-o
+            ros::SubscribeOptions so =
+                    ros::SubscribeOptions::create<std_msgs::Float32>(
+                            "/" + this->model->GetName() + "/comando_velocidade",
+                            1,
+                            boost::bind(&VelodynePlugin::EnviarMensagemRos, this, _1),
+                            ros::VoidPtr(), &this->rosRetornoFila);
+            this->rosSub = this->rosNode->subscribe(so);
+
+            /// Gire o encadeamento auxiliar da fila.
+            this->rosFilaThread = std::thread(std::bind(&VelodynePlugin::FilaDaThread, this));
+
+
+        }
+
+        /**
+         * @brief Tratando a mensagem recebida pelo ROS
+         * @param _mensagem: Um valor flutuante usado para definir a velocidade
+         * do velodyne
+         */
+    public:
+        void EnviarMensagemRos(const std_msgs::Float32ConstPtr &_mensagem) {
+            this->MudarVelocidade(_mensagem->data);
+        }
+
+        /**
+         * @brief Lidar com uma mensagem recebida do ROS
+         */
+    private:
+        void FilaDaThread() {
+            static const double tempo_espera = 0.01;
+            while (this->rosNode->ok()) {
+                this->rosRetornoFila.callAvailable(ros::WallDuration(tempo_espera));
+            }
         }
 
         /// @brief Ajusta a velocidade do velodyne dinamicamente
         /// @param _vel Adiciona nova velocidade ao Velodine
     public:
-        void SetarVelocidade(const double &_vel) {
+        void MudarVelocidade(const double &_vel) {
             /// Seta na junta(JOINT) a velocidade
             this->model->GetJointController()->SetVelocityTarget(
                     this->joint->GetScopedName(), _vel);
@@ -122,7 +175,7 @@ namespace gazebo {
         /// only use the x component.
     private:
         void OnMsg(ConstVector3dPtr &_msg) {
-            this->SetarVelocidade(_msg->x());
+            this->MudarVelocidade(_msg->x());
         }
 
     };

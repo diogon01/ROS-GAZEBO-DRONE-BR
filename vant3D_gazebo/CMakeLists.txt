@@ -14,6 +14,10 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 
+# Build our plugin
+add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
+target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
+
 # Build the stand-alone test program
 add_executable(velocidade src/velocidade_velodyne.cc)
 
@@ -25,7 +29,3 @@ if (${gazebo_VERSION_MAJOR} LESS 6)
 else ()
     target_link_libraries(velocidade ${GAZEBO_LIBRARIES})
 endif ()
-
-# Build our plugin
-add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
-target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
