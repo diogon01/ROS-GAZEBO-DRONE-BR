@@ -18,7 +18,7 @@
 
             <!-- Attach the plugin to this model -->
             <plugin name="velodyne_control" filename="libvelodyne_plugin.so">
-                <velocidade>5</velocidade>
+                <velocidade>15</velocidade>
             </plugin>
         </model>
     </world>

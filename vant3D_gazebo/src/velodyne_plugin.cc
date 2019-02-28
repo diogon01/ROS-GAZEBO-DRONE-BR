@@ -99,7 +99,7 @@ namespace gazebo {
             this->node->Init(this->model->GetWorld()->Name());
 #endif
             /// Criando o nome do topico
-            std::string nomeTopico = "~/" + this->model->GetName() + "/vel_cmd";
+            std::string nomeTopico = "~/" + this->model->GetName() + "/comando_velocidade";
 
             /// Assine o tópico e registre um retorno de chamada
             this->sub = this->node->Subscribe(nomeTopico,
