@@ -1,0 +1,44 @@
+<package>
+    <name>vant3d_gazebo</name>
+    <version>0.1</version>
+    <description>Simulador de inspeção industrial utilizando RotorS feito pela Labmetro</description>
+
+    <maintainer email="diogo.oliveira@labmetro.ufsc.br">Diogo Henrique</maintainer>
+    <maintainer email="mina.kamel@labmetro.ufsc.br">Mina Kamel</maintainer>
+
+    <author>Diogo Henrique</author>
+    <author>Daniel</author>
+    <author>Prof Thiago</author>
+    <author>Eng Pedro</author>
+    <author>Markus Achtelik</author>
+
+    <license>ASL 2.0</license>
+
+    <url type="website">https://github.com/diogon01/ROS-GAZEBO-DRONE-BR</url>
+    <url type="bugtracker">https://github.com/diogon01/ROS-GAZEBO-DRONE-BR/issues</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+<!--
+
+    &lt;!&ndash; Dependencies needed to compile this package. &ndash;&gt;
+    <build_depend>gazebo_msgs</build_depend>
+    <build_depend>gazebo_plugins</build_depend>
+    <build_depend>geometry_msgs</build_depend>
+    <build_depend>mav_msgs</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>rotors_gazebo_plugins</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+
+    &lt;!&ndash; Dependencies needed after this package is compiled. &ndash;&gt;
+    <run_depend>gazebo_msgs</run_depend>
+    <run_depend>gazebo_plugins</run_depend>
+    <run_depend>geometry_msgs</run_depend>
+    <run_depend>joy</run_depend>
+    <run_depend>mav_msgs</run_depend>
+    <run_depend>roscpp</run_depend>
+    <run_depend>rotors_gazebo_plugins</run_depend>
+    <run_depend>sensor_msgs</run_depend>
+    <run_depend>xacro</run_depend>
+-->
+
+</package>
