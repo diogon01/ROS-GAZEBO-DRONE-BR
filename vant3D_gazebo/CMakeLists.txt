@@ -19,7 +19,7 @@ add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
 target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
 # Build the stand-alone test program
-add_executable(velocidade src/velocidade_velodyne.cc)
+add_executable(velocidade src/velocidade_velodyne.cc src/camera/camera_registra_foto.cpp)
 
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two
