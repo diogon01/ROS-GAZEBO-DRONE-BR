@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+    <model name="Parede Lisa">
+        <static>true</static>
+        <link name="link">
+            <pose>0 0 0 0 0 0</pose>
+            <collision name="collision">
+                <geometry>
+                    <mesh>
+                        <uri>model://parede_lisa/Parede_lisa.dae</uri>
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <geometry>
+                    <mesh>
+                        <uri>model://parede_lisa/Parede_lisa.dae</uri>
+                    </mesh>
+                </geometry>
+                <surface>
+                    <contact>
+                        <collide_bitmask>0xffff</collide_bitmask>
+                    </contact>
+                </surface>
+            </visual>
+        </link>
+    </model>
+</sdf>
