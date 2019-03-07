@@ -1,3 +1,4 @@
+<!--Configurar o ROS-Launch de acordo com o rotors-gazebo-->
 <launch>
     <arg name="world_name" default="camera"/>
     <arg name="paused" value="true"/>
