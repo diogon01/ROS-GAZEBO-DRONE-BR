@@ -1,5 +1,5 @@
 <launch>
-    <arg name="world_name" default="velodyne"/>
+    <arg name="world_name" default="camera"/>
     <arg name="verbose" default="true"/>
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
