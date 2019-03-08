@@ -21,6 +21,9 @@
                 <always_on>1</always_on>
                 <update_rate>30.0</update_rate>
                 <camera name="Canon">
+                    <save enabled="true">
+                        <path>/tmp/camera_save_tutorial</path>
+                    </save>
                     <horizontal_fov>0.08</horizontal_fov>
                     <image>
                         <width>5184</width>
@@ -28,7 +31,7 @@
                         <format>R8G8B8</format>
                     </image>
                     <clip>
-                        <near>0.02</near>
+                        <near>0.25</near>
                         <far>300</far>
                     </clip>
                     <noise>
