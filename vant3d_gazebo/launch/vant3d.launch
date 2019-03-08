@@ -1,6 +1,7 @@
 <launch>
     <arg name="world_name" default="camera"/>
     <arg name="verbose" default="true"/>
+    <arg name="paused" default="true"/>
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
     <env name="GAZEBO_MODEL_PATH" value="${GAZEBO_MODEL_PATH}:$(find vant3d_gazebo)/models"/>
@@ -9,6 +10,7 @@
         <arg name="world_name" value="$(find vant3d_gazebo)/worlds/$(arg world_name).world"/>
         <!-- more default parameters can be changed here -->
         <arg name="verbose" value="$(arg verbose)"/>
+        <arg name="paused" value="$(arg paused)" />
     </include>
 
 </launch>
