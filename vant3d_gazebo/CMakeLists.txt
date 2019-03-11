@@ -36,6 +36,10 @@ target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 # Build the stand-alone test program
 add_executable(velocidade src/velocidade_velodyne.cc src/camera/camera_registra_foto.cpp)
 
+# Librery de mover a câmera
+add_library(animated_camera SHARED src/camera/animated_camera.cc)
+target_link_libraries(animated_camera ${GAZEBO_LIBRARIES})
+
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two
     include(FindBoost)

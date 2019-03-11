@@ -77,5 +77,6 @@
             </sensor>
         </link>
         <static>true</static>
+        <plugin name="push_animate" filename="libanimated_camera.so"/>
     </model>
 </sdf>
