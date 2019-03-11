@@ -4,12 +4,10 @@
     <description>The rotors_gazebo_demos package</description>
 
     <maintainer email="diogo.oliveira@labmetro.ufsc.br">Diogo Henrique</maintainer>
+    <maintainer email="daniel.regner@labmetro.ufsc.br">Daniel Regner</maintainer>
 
-    <author>Fadri Furrer</author>
-    <author>Michael Burri</author>
-    <author>Mina Kamel</author>
-    <author>Janosch Nikolic</author>
-    <author>Markus Achtelik</author>
+    <author>Daniel Regner</author>
+    <author>Diogo Henrique</author>
 
     <license>ASL 2.0</license>
 
