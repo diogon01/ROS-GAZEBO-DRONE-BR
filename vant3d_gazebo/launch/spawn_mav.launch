@@ -6,7 +6,7 @@
   <arg name="model" default="$(find vant3d_description)/urdf/$(arg mav_name)_base.xacro"/>
   <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
   <arg name="x" default="-10"/>
-  <arg name="y" default="-10"/>
+  <arg name="y" default="-3"/>
   <arg name="z" default="0.5"/>
   <arg name="enable_logging" default="false"/>
   <arg name="enable_ground_truth" default="true"/>
