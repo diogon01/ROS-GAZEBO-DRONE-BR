@@ -1,11 +1,25 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
     <world name="camera">
-
+        <scene>
+         <sky>
+            <clouds>
+                <speed> 5</speed>
+            </clouds>
+         </sky>
+            <shadows>false</shadows>
+            <fog>
+                <color> 1 1 1 1</color>
+                <type>linear</type>
+                <start> 15 </start>
+                <end> 200 </end>
+                <desity> 0.8 </desity>
+            </fog>
+        </scene>
         <!-- A global light source -->
         <light type="directional" name="sun1">
             <cast_shadows>false</cast_shadows>
-            <pose>10 0 15 0 0 0</pose>
+            <pose>10 0 20 0 0 0</pose>
             <diffuse>0.8 0.8 0.8 1</diffuse>
             <specular>0.9 0.9 0.9 1</specular>
             <attenuation>
@@ -21,7 +35,7 @@
         <!-- Second SUN -->
         <light type="directional" name="sun2">
             <cast_shadows>false</cast_shadows>
-            <pose>-10 0 15 0 0 0</pose>
+            <pose>-10 0 20 0 0 0</pose>
             <diffuse>0.8 0.8 0.8 1</diffuse>
             <specular>0.9 0.9 0.9 1</specular>
             <attenuation>
@@ -32,10 +46,19 @@
             </attenuation>
             <direction>0.2 0.2 -0.9</direction>
         </light>
+        <!--<include>-->
+            <!--<uri>model://sun</uri>-->
+            <!--<pose>0 -5 5 0 0 0</pose>-->
+        <!--</include>-->
+        <!--<include>-->
+            <!--<uri>model://sun</uri>-->
+            <!--<pose>0 5 5 0 0 0</pose>-->
+        <!--</include>-->
 
         <!-- A ground plane -->
         <include>
-            <uri>model://ground_plane</uri>
+            <uri>model://sea_surface</uri>
+            <pose>0 0 0 0 0 0</pose>
         </include>
 
 
@@ -51,14 +74,14 @@
         </include>
 
         <!-- CAMERA MODEL -->
-        <include>
-            <uri>model://canon</uri>
-            <pose>0 0 2 0 0 0</pose>
-        </include>
+        <!--<include>-->
+            <!--<uri>model://canon</uri>-->
+            <!--<pose>0 0 2 0 0 0</pose>-->
+        <!--</include>-->
 
         <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
         topic to a ROS topic (or vise versa). -->
-        <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
+        <!--<plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>-->
 
         A physics behind the codes
         <spherical_coordinates>
