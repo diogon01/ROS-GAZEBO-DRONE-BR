@@ -25,7 +25,17 @@ namespace gazebo {
     public:
         void Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) {
             // Store the pointer to the model
-            this->model = _parent;
+            this->_model = _parent;
+            this->_link = _parent->GetLinks()[0];
+
+
+
+            std::cerr << "\nO plugin do labmetro da camera acessou o  [" <<
+                      _link->GetName() << "]\n";
+            std::cerr << "\nO A posicao da camera  [" <<
+                      _model->GetWorldPose() << "]\n";
+
+
 
             // create the animation
             gazebo::common::PoseAnimationPtr anim(
@@ -329,13 +339,15 @@ namespace gazebo {
 
 
             // set the animation
-        _parent->
-        SetAnimation(anim);
-    }
+            _parent->SetAnimation(anim);
+        }
 
     // Pointer to the model
     private:
-    physics::ModelPtr model;
+        physics::ModelPtr _model;
+// Pointer to the model
+    private:
+        physics::LinkPtr _link;
 
     // Pointer to the update event connection
     private:

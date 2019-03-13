@@ -1,7 +1,8 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-    <model name="Camera Cannon">
-        <link name="link">
+    <model name="camera_labmetro">
+
+        <link name="link_camera_01">
             <pose>0 0 0 0 0 1.57</pose>
             <collision name="collision">
                 <geometry>
