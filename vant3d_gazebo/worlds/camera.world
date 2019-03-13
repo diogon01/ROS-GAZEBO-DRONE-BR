@@ -73,15 +73,15 @@
             <pose>0 5 0 0 0 0</pose>
         </include>
 
-        <!-- CAMERA MODEL -->
-        <!--<include>-->
-            <!--<uri>model://canon</uri>-->
-            <!--<pose>0 0 2 0 0 0</pose>-->
-        <!--</include>-->
+         CAMERA MODEL
+        <include>
+            <uri>model://canon</uri>
+            <pose>-7.272 0 1 0 0 0</pose>
+        </include>
 
         <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
         topic to a ROS topic (or vise versa). -->
-        <!--<plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>-->
+        <plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>
 
         A physics behind the codes
         <spherical_coordinates>
