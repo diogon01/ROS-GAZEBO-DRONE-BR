@@ -41,26 +41,6 @@ namespace gazebo {
             float pos_z = 0;
             float pos_x = -7.272;
 
-//            while (pos_x != 7.272) {
-//                if (pos > 18) {
-//                    while (pos_z < 20) {
-//                        key = anim->CreateKeyFrame(frame_time += 5);
-//                        key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z += 2));
-//                        key->Rotation(ignition::math::Quaterniond(0, 0, 0));
-//                    }
-//                } else {
-//                    while (pos_z > 2) {
-//                        key = anim->CreateKeyFrame(frame_time += 5);
-//                        key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z -= 2));
-//                        key->Rotation(ignition::math::Quaterniond(0, 0, 0));
-//                    }
-//                }
-//
-//            pos_x += 1.818;
-//            pos = pos_z
-//        }
-
-
         // set starting location of the box
             key = anim->CreateKeyFrame(frame+=5);
             key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z));
