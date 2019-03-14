@@ -31,7 +31,6 @@ namespace gazebo {
             this->_link = _parent->GetLinks()[0];
             this->world_ = _parent->GetWorld();
 
-
             std::cerr << "\nO plugin do labmetro da camera acessou o  [" <<
                       _link->GetName() << "]\n";
             std::cerr << "\nO A posicao da camera  [" <<
@@ -61,8 +60,7 @@ namespace gazebo {
             float pos_z = 0;
             float pos_x = -7.272;
 
-            // set starting location of the box
-            key = anim->CreateKeyFrame(frame += 5);
+            key = anim->CreateKeyFrame(frame+=5);
             key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z));
             key->Rotation(ignition::math::Quaterniond(0, 0, 0));
             key = anim->CreateKeyFrame(frame += 5);
@@ -123,6 +121,7 @@ namespace gazebo {
             key = anim->CreateKeyFrame(frame += 5);
             key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z -= 2));
             key->Rotation(ignition::math::Quaterniond(0, 0, 0));
+
 
             // set starting location of the box
             key = anim->CreateKeyFrame(frame += 5);

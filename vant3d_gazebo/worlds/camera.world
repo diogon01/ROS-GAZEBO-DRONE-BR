@@ -112,6 +112,13 @@
             <real_time_update_rate>100</real_time_update_rate>
             <gravity>0 0 -9.8</gravity>
         </physics>
-
+        <!-- Unser Interface -->
+        <gui fullscreen='0'>
+            <camera name='user_camera'>
+                <pose frame=''>-4 -39 2.58 0 0 1.57</pose>
+                <view_controller>orbit</view_controller>
+                <projection_type>perspective</projection_type>
+            </camera>
+        </gui>
     </world>
 </sdf>
