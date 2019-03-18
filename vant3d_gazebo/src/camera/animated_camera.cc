@@ -41,15 +41,10 @@ namespace gazebo {
                     std::bind(&AnimatedCamera::OnUpdate, this, std::placeholders::_1)));
 
 
-
-
-
-
-
             // create the animation
             gazebo::common::PoseAnimationPtr anim(
                     // name the animation "test",
-                    // make it last 10 seconds,
+                    // make it last 450 seconds (50 seconds for each riser),
                     // and set it on a repeat loop
                     new gazebo::common::PoseAnimation("test", 450, false));
 

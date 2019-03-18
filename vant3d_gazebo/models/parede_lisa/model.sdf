@@ -7,14 +7,14 @@
             <collision name="collision">
                 <geometry>
                     <mesh>
-                        <uri>model://parede_lisa/Parede_lisa.dae</uri>
+                        <uri>model://parede_lisa/parede_lisa.dae</uri>
                     </mesh>
                 </geometry>
             </collision>
             <visual name="visual">
                 <geometry>
                     <mesh>
-                        <uri>model://parede_lisa/Parede_lisa.dae</uri>
+                        <uri>model://parede_lisa/parede_lisa.dae</uri>
                     </mesh>
                 </geometry>
                 <surface>

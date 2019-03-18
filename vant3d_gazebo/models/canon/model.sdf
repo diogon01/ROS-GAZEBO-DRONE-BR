@@ -26,7 +26,7 @@
                     <save enabled="true">
                     <path>/tmp/camera_save_tutorial</path>
                     </save>
-                    <horizontal_fov>0.1</horizontal_fov>
+                    <horizontal_fov>0.38</horizontal_fov>
                     <image>
                         <width>5184</width>
                         <height>3456</height>
@@ -42,15 +42,15 @@
                              That pixel's noise value is added to each of its color
                              channels, which at that point lie in the range [0,1]. -->
                         <mean>0.0</mean>
-                        <stddev>0.007</stddev>
+                        <stddev>-.02</stddev>
                     </noise>
                     <distortion>
-                        <k1>0.0005</k1>
+                        <k1>0.001</k1>
                         <k2>0.0001</k2>
                         <k3>0.0</k3>
                         <p1>0.0002</p1>
                         <p2>0.0</p2>
-                        <center>0 0</center>
+                        <center>0.5 0.5</center>
                     </distortion>
                 </camera>
                 <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
@@ -70,7 +70,7 @@
                             <c1>1</c1>
                             <c2>1</c2>
                             <c3>0</c3>
-                            <f>5.6</f>
+                            <f>0.055</f>
                             <fun>tan</fun>
                         </custom_function>
                     </lens>
