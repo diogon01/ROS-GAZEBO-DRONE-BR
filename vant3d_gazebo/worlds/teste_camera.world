@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+    <world name="Teste Camera">
+
+        <scene>
+            <sky>
+                <clouds>
+                    <speed>5</speed>
+                </clouds>
+            </sky>
+            <shadows>false</shadows>
+            <fog>
+                <color>1 1 1 1</color>
+                <type>linear</type>
+                <start>15</start>
+                <end>200</end>
+                <desity>0.8</desity>
+            </fog>
+        </scene>
+
+        <!-- A global light source -->
+        <light type="directional" name="sun1">
+            <cast_shadows>false</cast_shadows>
+            <pose>10 0 15 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.9 0.9 0.9 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>0.2 0.2 -0.9</direction>
+        </light>
+
+
+        <!-- Second SUN -->
+        <light type="directional" name="sun2">
+            <cast_shadows>false</cast_shadows>
+            <pose>-10 0 15 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.9 0.9 0.9 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>0.2 0.2 -0.9</direction>
+        </light>
+
+        <!-- A ground plane -->
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+
+        <!-- A box with a definited size-->
+
+        <model name="A box">
+            <static>true</static>
+            <link name="link">
+                <pose>0 5.5 1 0 0 0</pose>
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>.8 .8 .8</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>.8 .8 .8</size>
+                        </box>
+                    </geometry>
+                </visual>
+            </link>
+        </model>
+
+        <!-- A wall -->
+        <include>
+            <uri>model://parede_lisa</uri>
+            <pose>0 10 0 0 0 0</pose>
+        </include>
+
+
+        <!-- CAMERA MODEL -->
+        <model name="camera_labmetro">
+            <static>true</static>
+            <link name="link_camera_01">
+                <pose>0 0 1 0 0 1.57</pose>
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>0.05 0.05 0.05</size>
+                        </box>
+                    </geometry>
+                </collision>
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>0.05 0.05 0.05</size>
+                        </box>
+                    </geometry>
+                </visual>
+                <sensor type="camera" name="canon1">
+                    <always_on>1</always_on>
+                    <update_rate>60</update_rate>
+                    <visualize>true</visualize>
+                    <camera>
+                        <horizontal_fov>0.317</horizontal_fov>
+                        <image>
+                            <width>5184</width>
+                            <height>3456</height>
+                            <format>R8G8B8</format>
+                        </image>
+                        <clip>
+                            <near>0.25</near>
+                            <far>300</far>
+                        </clip>
+                        <noise>
+                            <type>gaussian</type>
+                            <!-- Noise is sampled independently per pixel on each frame.
+                                 That pixel's noise value is added to each of its color
+                                 channels, which at that point lie in the range [0,1]. -->
+                            <mean>0.0</mean>
+                            <stddev>0.1</stddev>
+                        </noise>
+                        <distortion>
+                            <k1>0.0005</k1>
+                            <k2>0.0001</k2>
+                            <k3>0.0</k3>
+                            <p1>0.0002</p1>
+                            <p2>0.0</p2>
+                            <center>0.5 0.5</center>
+                        </distortion>
+                    </camera>
+                    <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                        <alwaysOn>true</alwaysOn>
+                        <updateRate>0.0</updateRate>
+                        <cameraName>static/canon1</cameraName>
+                        <imageTopicName>image_raw</imageTopicName>
+                        <cameraInfoTopicName>canon_info</cameraInfoTopicName>
+                        <frameName>camera_link</frameName>
+                        <hackBaseline>0.07</hackBaseline>
+                        <lens>
+                            <!--<type>stereographic</type>-->
+                            <type>gnomical</type>
+                            <scale_o_hfov>false</scale_o_hfov>
+                            <cutoff_angle>.1</cutoff_angle>
+                            <custom_function>
+                                <c1>1</c1>
+                                <c2>1</c2>
+                                <c3>0</c3>
+                                <f>0.055</f>
+                                <fun>tan</fun>
+                            </custom_function>
+                        </lens>
+                    </plugin>
+                </sensor>
+            </link>
+        </model>
+
+        <!--&lt;!&ndash; Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo-->
+        <!--topic to a ROS topic (or vise versa). &ndash;&gt;-->
+        <!--<plugin name="ros_interface_plugin" filename="librotors_gazebo_ros_interface_plugin.so"/>-->
+
+        A physics behind the codes
+        <spherical_coordinates>
+            <surface_model>EARTH_WGS84</surface_model>
+            <latitude_deg>-22.905</latitude_deg>
+            <longitude_deg>-43.029</longitude_deg>
+
+            <!-- Long e Lat de RJ-RJ -->
+            <elevation>0</elevation>
+            <heading_deg>0</heading_deg>
+        </spherical_coordinates>
+        <physics type='ode'>
+            <ode>
+                <solver>
+                    <type>quick</type>
+                    <iters>1000</iters>
+                    <sor>1.3</sor>
+                </solver>
+                <constraints>
+                    <cfm>0</cfm>
+                    <erp>0.2</erp>
+                    <contact_max_correcting_vel>100</contact_max_correcting_vel>
+                    <contact_surface_layer>0.001</contact_surface_layer>
+                </constraints>
+            </ode>
+            <max_step_size>0.01</max_step_size>
+            <real_time_factor>1</real_time_factor>
+            <real_time_update_rate>100</real_time_update_rate>
+            <gravity>0 0 -9.8</gravity>
+        </physics>
+
+    </world>
+</sdf>

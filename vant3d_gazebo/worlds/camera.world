@@ -2,6 +2,22 @@
 <sdf version="1.5">
     <world name="camera">
 
+        <scene>
+            <sky>
+                <clouds>
+                    <speed> 5</speed>
+                </clouds>
+            </sky>
+            <shadows>false</shadows>
+            <fog>
+                <color> 1 1 1 1</color>
+                <type>linear</type>
+                <start> 15 </start>
+                <end> 200 </end>
+                <desity> 0.8 </desity>
+            </fog>
+        </scene>
+
         <!-- A global light source -->
         <light type="directional" name="sun1">
             <cast_shadows>false</cast_shadows>
