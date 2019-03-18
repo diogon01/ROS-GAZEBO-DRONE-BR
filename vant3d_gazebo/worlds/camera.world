@@ -65,12 +65,12 @@
         <!-- Some Risers -->
         <include>
             <uri>model://risers</uri>
-            <pose>0 5 18 3.14 0 0</pose>
+            <pose>0 6.5 18 3.14 0 0</pose>
         </include>
 
         <include>
             <uri>model://parede_lisa</uri>
-            <pose>0 5 0 0 0 0</pose>
+            <pose>0 7 0 0 0 0</pose>
         </include>
 
          CAMERA MODEL

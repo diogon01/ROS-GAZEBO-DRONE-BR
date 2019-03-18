@@ -17,6 +17,11 @@
                         <uri>model://parede_lisa/parede_lisa.dae</uri>
                     </mesh>
                 </geometry>
+                <material>
+                    <script>
+                        <uri> model://parede_lisa</uri>
+                    </script>
+                </material>
                 <surface>
                     <contact>
                         <collide_bitmask>0xffff</collide_bitmask>

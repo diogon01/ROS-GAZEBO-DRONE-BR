@@ -17,6 +17,11 @@
                         <uri>model://risers/risers.dae</uri>
                     </mesh>
                 </geometry>
+                <material>
+                    <script>
+                        <uri> model://risers</uri>
+                    </script>
+                </material>
                 <surface>
                     <contact>
                         <collide_bitmask>0xffff</collide_bitmask>
