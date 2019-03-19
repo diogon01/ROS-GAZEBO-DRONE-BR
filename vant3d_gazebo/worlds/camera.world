@@ -5,7 +5,7 @@
         <scene>
             <sky>
                 <clouds>
-                    <speed> 5</speed>
+                    <speed> 10</speed>
                 </clouds>
             </sky>
             <shadows>false</shadows>
@@ -14,7 +14,7 @@
                 <type>linear</type>
                 <start> 15 </start>
                 <end> 200 </end>
-                <desity> 0.8 </desity>
+                <desity> 0.7 </desity>
             </fog>
         </scene>
 
