@@ -51,25 +51,26 @@
 
         <!-- A ground plane -->
         <include>
-            <uri>model://ground_plane</uri>
+            <uri>model://sea_surface</uri>
+            <pose>0 0 0 0 0 0</pose>
         </include>
 
 
         <!-- Some Risers -->
         <include>
             <uri>model://risers</uri>
-            <pose>0 5 18 3.14 0 0</pose>
+            <pose>0 6.5 18 3.14 0 0</pose>
         </include>
 
         <include>
             <uri>model://parede_lisa</uri>
-            <pose>0 5 0 0 0 0</pose>
+            <pose>0 7 0 0 0 0</pose>
         </include>
 
         <!-- CAMERA MODEL -->
         <include>
             <uri>model://canon</uri>
-            <pose>0 0 2 0 0 0</pose>
+            <pose>-7.272 0 1 0 0 0</pose>
         </include>
 
         <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
@@ -105,6 +106,13 @@
             <real_time_update_rate>100</real_time_update_rate>
             <gravity>0 0 -9.8</gravity>
         </physics>
-
+        <!-- Unser Interface -->
+        <gui fullscreen='0'>
+            <camera name='user_camera'>
+                <pose frame=''>-4 -39 2.58 0 0 1.57</pose>
+                <view_controller>orbit</view_controller>
+                <projection_type>perspective</projection_type>
+            </camera>
+        </gui>
     </world>
 </sdf>
