@@ -14,6 +14,13 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 
+# User interface components
+find_package(PkgConfig)
+pkg_check_modules(GTKMM gtkmm-3.0)
+
+include_directories(${GTKMM_INCLUDE_DIRS})
+link_directories(${GTKMM_LIBRARY_DIRS})
+
 
 # catkin configuration
 find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs)
@@ -34,7 +41,7 @@ add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
 target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
 # Build the stand-alone test program
-add_executable(velocidade src/velocidade_velodyne.cc src/camera/camera_registra_foto.cpp)
+add_executable(velocidade src/velocidade_velodyne.cc)
 
 # Librery de mover a câmera
 add_library(animated_camera SHARED src/camera/animated_camera.cc)
@@ -49,13 +56,16 @@ else ()
     target_link_libraries(velocidade ${GAZEBO_LIBRARIES})
 endif ()
 
-foreach(dir launch models resource worlds)
+foreach (dir launch models resource worlds)
     install(DIRECTORY ${dir}/
             DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+endforeach (dir)
 
 
-install(TARGETS velodyne_plugin velocidade
+add_executable(vant3d_controller src/controller/vant3d_controller.cpp)
+target_link_libraries(vant3d_controller ${GTKMM_LIBRARIES})
+
+install(TARGETS velodyne_plugin velocidade vant3d_controller
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
