@@ -34,7 +34,7 @@ add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
 target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
 # Build the stand-alone test program
-add_executable(velocidade src/velocidade_velodyne.cc src/camera/camera_registra_foto.cpp)
+add_executable(velocidade src/velocidade_velodyne.cc)
 
 # Librery de mover a câmera
 add_library(animated_camera SHARED src/camera/animated_camera.cc)
