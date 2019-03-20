@@ -23,9 +23,9 @@
                 <update_rate>60</update_rate>
                 <visualize>true</visualize>
                 <camera>
-                    <!--<save enabled="true">-->
-                    <!--<path>/tmp/camera_save_tutorial</path>-->
-                    <!--</save>-->
+                    <save enabled="true">
+                    <path>/tmp/camera_save_tutorial</path>
+                    </save>
                     <horizontal_fov>0.38</horizontal_fov>
                     <image>
                         <width>5184</width>

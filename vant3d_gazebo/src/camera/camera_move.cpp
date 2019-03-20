@@ -28,7 +28,72 @@
 #include <string>
 #include <sstream>
 
-#include <camera_move.h>
+#include "camera_move.h"
 
 using namespace gazebo;
+
+// Registrando o plugin CameraMove no gazebo
+GZ_REGISTER_MODEL_PLUGIN(CameraMove);
+
+//Criando Contrutor da Classe sem parametros
+CameraMove::CameraMove() {
+
+}
+
+void CameraMove::Move(const math::Vector3 &_start, const math::Vector3 &_end, math::Vector3 &_translation) {
+
+    int duration = floor(_start.Distance(_end.x, _end.y, _end.z));
+    math::Vector3 diff = _end - _start;
+    float xStep = diff.x / duration;
+    float yStep = diff.y / duration;
+    float zStep = diff.z / duration;
+    int currFrame = this->anim->GetKeyFrameCount();
+
+    for (int j = 0; j <= duration; ++j) {
+
+        gazebo::common:PoseKeyFrame *key = this->anim->CreateKeyFrame(i + currFrame);
+
+        key->Translation(ignition::math::Vector3d(
+                _translation.x + xStep * j,
+                _translation.y + yStep * j,
+                _translation.z + zStep * j));
+
+    }
+}
+
+void CameraMove::InitiateMove() {
+
+    // Recebendo distância inicial até objetivo
+    float pathLength = this->startPosition.Distance(this->pathGoals[0].pos);
+
+    // Calculando distancia total e adicionando distancia até o objetivo
+    for (unsigned int j = 0; j < this->pathGoals.size(); ++j) {
+        pathLength = this->pathGloas[i].pos.Distance(this->pathGoals[i + 1].pos);
+    }
+
+    // Criando Animação
+    this->anim = gazebo::common::PoseAnimationPtr(
+            new gazebo::common::PoseAnimation("test", pathLenght + 1, false));
+
+    gazebo::common::PoseKeyFrame *key;
+
+    // Define local de inicio dentro de uma caixa
+    key  = this->anim->CreateKeyFrame(0);
+    key->Translation(ignition::math::Vector3d(0,0,0));
+    key->Rotation(ignition::math::Quaterniond(0,0,0));
+
+    math::Vector3 translation = math::Vector3(0,0,0);
+
+    // move do ponto inicial ao primeiro objetivo
+    this->Move(this->startPosition. this->pathGoals[0].pos, translation);
+
+    for (unsigned int k = 0; k < this->pathGoals.size() ; ++k) {
+        this-Move(this->pathGoals[k].pos. this->pathGoals[k+1].pos, translation);
+    }
+
+    // Define animação
+    this->model->SetAnimation(ConstPoseAnimationPtr &_msg)
+
+}
+
 

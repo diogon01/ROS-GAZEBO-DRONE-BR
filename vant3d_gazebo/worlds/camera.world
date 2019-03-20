@@ -70,7 +70,7 @@
         <!-- CAMERA MODEL -->
         <include>
             <uri>model://canon</uri>
-            <pose>-7.272 0 1 0 0 0</pose>
+            <pose>0 0 1 0 0 0</pose> <!-- -7.272 -->
         </include>
 
         <!-- Only one ROS interface plugin is required per world, as any other plugin can connect a Gazebo
