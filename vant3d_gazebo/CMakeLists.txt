@@ -29,24 +29,25 @@ catkin_package(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-# Build our plugin
-add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
-target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
-
+# EXECUTABLE
 # Build the stand-alone test program
 add_executable(velocidade src/velocidade_velodyne.cc)
 
+add_executable(path_publisher src/camera/path_publisher.cc)
+target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
+
+# LIBRARY
 # Librery de mover a câmera
 add_library(animated_camera SHARED src/camera/animated_camera.cc)
 target_link_libraries(animated_camera ${GAZEBO_LIBRARIES})
 
-# Librery de mover a câmera novo Plugin
-add_library(animated_camera SHARED src/camera/camera_move.cpp)
-target_link_libraries(camera_move ${GAZEBO_LIBRARIES})
+add_library(model_move SHARED src/camera/camera_move.cc)
+target_link_libraries(model_move ${GAZEBO_LIBRARIES})
 
-# Librery de Publicação de movimentos camera_move
-add_library(animated_camera SHARED src/camera/path_publisher.cpp)
-target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
+# Build our plugin
+add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
+target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
+
 
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two

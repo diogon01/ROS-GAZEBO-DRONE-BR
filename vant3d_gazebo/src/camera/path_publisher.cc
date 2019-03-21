@@ -11,17 +11,17 @@
 
 using namespace gazebo;
 
-int main(int _argc, char *_argv[]){
+int main(int _argc, char *_argv[]) {
 
     msgs::PoseAnimation msg;
 
-    msg.set_model_name("box") /// Alterar para nome do modelo em SDF a ser movimentado
+    msg.set_model_name("box"); /// Alterar para nome do modelo em SDF a ser movimentado
     msgs::Pose *p = msg.add_pose();
-    msgs::Set(p, ignition::math::Pose3d(5,-5,0,0,0,0))
+    msgs::Set(p, ignition::math::Pose3d(5, -5, 0, 0, 0, 0));
     p = msg.add_pose();
-    msgs::Set(p, ignition::math::Pose3d(5,-5,0,0,0,0))
+    msgs::Set(p, ignition::math::Pose3d(5, -5, 0, 0, 0, 0));
     p = msg.add_pose();
-    msgs::Set(p, ignition::math::Pose3d(5,-5,0,0,0,0))
+    msgs::Set(p, ignition::math::Pose3d(5, -5, 0, 0, 0, 0));
 
     transport::init();
     transport::run();
@@ -30,14 +30,14 @@ int main(int _argc, char *_argv[]){
 
     /// modelmove_world é o nome do arquivo teste .world
     /// alterar quando for criar mundo de teste
-    const std::string topicName = "/gazebo/modelmove_world" + msg.model_name() + "/camera_move";
-    gazebo::transport::PublisherPtr pathPub = node-><msgs::PoseAnimation>Advertise(topicName);
+    const std::string topicName = "/gazebo/teste_move_world" + msg.model_name() + "/camera_move";
+    gazebo::transport::PublisherPtr pathPub = node->Advertise<msgs::PoseAnimation>(topicName);
 
     std::cout << "Waiting for connection in" << topicName << std::endl;
     pathPub->WaitForConnection();
     pathPub->Publish(msg);
 
-    std::cout << "Path published!" <std::endl;
+    std::cout << "Path published!" << std::endl;
 
     gazebo::transport::fini();
     return 0;

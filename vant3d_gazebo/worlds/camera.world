@@ -8,7 +8,7 @@
                     <speed> 10</speed>
                 </clouds>
             </sky>
-            <shadows>false</shadows>
+            <shadows>true</shadows>
             <fog>
                 <color> 1 1 1 1</color>
                 <type>linear</type>
@@ -21,7 +21,7 @@
         <!-- A global light source -->
         <light type="directional" name="sun1">
             <cast_shadows>false</cast_shadows>
-            <pose>10 0 15 0 0 0</pose>
+            <pose>10 0 20 1.57 0 0</pose>
             <diffuse>0.8 0.8 0.8 1</diffuse>
             <specular>0.9 0.9 0.9 1</specular>
             <attenuation>
@@ -37,7 +37,7 @@
         <!-- Second SUN -->
         <light type="directional" name="sun2">
             <cast_shadows>false</cast_shadows>
-            <pose>-10 0 15 0 0 0</pose>
+            <pose>-10 0 20 1.57 0 0</pose>
             <diffuse>0.8 0.8 0.8 1</diffuse>
             <specular>0.9 0.9 0.9 1</specular>
             <attenuation>

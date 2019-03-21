@@ -52,7 +52,7 @@ void CameraMove::Move(const math::Vector3 &_start, const math::Vector3 &_end, ma
 
     for (int j = 0; j <= duration; ++j) {
 
-        gazebo::common:PoseKeyFrame *key = this->anim->CreateKeyFrame(i + currFrame);
+        gazebo::common::PoseKeyFrame *key = this->anim->CreateKeyFrame(j + currFrame);
 
         key->Translation(ignition::math::Vector3d(
                 _translation.x + xStep * j,
@@ -69,12 +69,12 @@ void CameraMove::InitiateMove() {
 
     /// Calculando distancia total e adicionando distancia até o objetivo
     for (unsigned int j = 0; j < this->pathGoals.size(); ++j) {
-        pathLength = this->pathGloas[i].pos.Distance(this->pathGoals[i + 1].pos);
+        pathLength += this->pathGoals[j].pos.Distance(this->pathGoals[j + 1].pos);
     }
 
     /// Criando Animação
     this->anim = gazebo::common::PoseAnimationPtr(
-            new gazebo::common::PoseAnimation("test", pathLenght + 1, false));
+            new gazebo::common::PoseAnimation("test", pathLength + 1, false));
 
     gazebo::common::PoseKeyFrame *key;
 
@@ -87,25 +87,23 @@ void CameraMove::InitiateMove() {
     math::Vector3 translation = math::Vector3(0,0,0);
 
     /// move do ponto inicial ao primeiro objetivo
-    this->Move(this->startPosition. this->pathGoals[0].pos, translation);
+    this->Move(this->startPosition, this->pathGoals[0].pos, translation);
 
     for (unsigned int k = 0; k < this->pathGoals.size() ; ++k) {
-        this-Move(this->pathGoals[k].pos. this->pathGoals[k+1].pos, translation);
+        this->Move(this->pathGoals[k].pos, this->pathGoals[k+1].pos, translation);
     }
 
     /// Define animação
-    this->model->SetAnimation(ConstPoseAnimationPtr &_msg)
+    this->model->SetAnimation(this->anim);
 
 }
 
-void CameraMove::OnPathMsg(ConstPoseAnimationPtr &_msg) {
+void CameraMove::OnPathMsg(ConstPoseAnimationPtr &_msg){
+    gzmsg << "[model_move] Received path message" << std::endl;
 
-    gzmsg << "[camera_move] Recebeu trajetoria" << std::endl;
-
-    /// Armazena mensagens de camino dentro dos PathGoals
-    for (unsigned int j = 0; j < _msg->pose(); ++j) {
-        this->pathGoals.push_back(gazebo::msgs::ConvertIgn(_msg->pose()));
-    }
+    // Store message poses into the pathGoals and launch movement
+    for (unsigned int i = 0; i < _msg->pose_size(); ++i)
+        this->pathGoals.push_back(gazebo::msgs::ConvertIgn(_msg->pose(i)));
 
     this->InitiateMove();
 }
@@ -120,7 +118,7 @@ bool CameraMove::LoadGoalsFromSDF(const sdf::ElementPtr _sdf) {
     if(!_sdf -> HasElement("pose")){
 
         gzerr << "[camera_move] SDF com tag de trajetoria mas sem pose/s element/s" << std::endl;
-        return false
+        return false;
     }
     /// Salva em variavel o numero de elementos de pose
     sdf::ElementPtr poseElem = _sdf->GetElement("pose");
@@ -133,7 +131,7 @@ bool CameraMove::LoadGoalsFromSDF(const sdf::ElementPtr _sdf) {
 
     GZ_ASSERT(this->pathGoals.size() > 0, "pathGoals nao deve ser zero");
 
-    return true
+    return true;
 }
 
 void CameraMove::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
@@ -166,7 +164,7 @@ void CameraMove::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
 
     /// Desenvolvendo Inscrição
     std::string pathTopicName = std::string("~/") + _parent->GetName() + "/camera_move";
-    this->pathSubscriber = node->Subscribe(pathTopicName, &CameraMove::OnpathMsg, this);
-    gzmsg < "[camera_move] Inscrito para receber caminhos em: " << pathTopicName << std::endl;
+    this->pathSubscriber = node->Subscribe(pathTopicName, &CameraMove::OnPathMsg, this);
+    gzmsg << "[camera_move] Inscrito para receber caminhos em: " << pathTopicName << std::endl;
 
 }

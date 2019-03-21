@@ -42,7 +42,7 @@ namespace gazebo {
         math::Vector3 startPosition;
         /// @brief Caminho a seguir
     private:
-        std::vector<math::Pose> pathGoals
+        std::vector<math::Pose> pathGoals;
 
         /// @brief Construtor da classe
     public:
