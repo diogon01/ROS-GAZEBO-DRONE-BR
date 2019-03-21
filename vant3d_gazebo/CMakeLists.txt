@@ -40,6 +40,14 @@ add_executable(velocidade src/velocidade_velodyne.cc)
 add_library(animated_camera SHARED src/camera/animated_camera.cc)
 target_link_libraries(animated_camera ${GAZEBO_LIBRARIES})
 
+# Librery de mover a câmera novo Plugin
+add_library(animated_camera SHARED src/camera/camera_move.cpp)
+target_link_libraries(camera_move ${GAZEBO_LIBRARIES})
+
+# Librery de Publicação de movimentos camera_move
+add_library(animated_camera SHARED src/camera/path_publisher.cpp)
+target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
+
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two
     include(FindBoost)
