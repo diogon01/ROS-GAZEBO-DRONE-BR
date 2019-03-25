@@ -14,9 +14,8 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 
-
 # catkin configuration
-find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS cv_bridge dynamic_reconfigure image_transport gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs)
 
 catkin_package(
         CATKIN_DEPENDS
@@ -38,6 +37,11 @@ target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
 
 # LIBRARY
 # Librery de mover a câmera
+
+add_library(compress_transport SHARED src/compressed_publisher.cpp src/compressed_subscriber.cpp src/manifest.cpp)
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+target_link_libraries(compress_transport ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
 add_library(animated_camera SHARED src/camera/animated_camera.cc)
 target_link_libraries(animated_camera ${GAZEBO_LIBRARIES})
 

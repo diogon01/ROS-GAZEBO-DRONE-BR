@@ -37,6 +37,7 @@ using namespace gazebo;
 GZ_REGISTER_MODEL_PLUGIN(CameraMove);
 
 /// Criando Contrutor da Classe sem parametros
+
 CameraMove::CameraMove() {
 
 }

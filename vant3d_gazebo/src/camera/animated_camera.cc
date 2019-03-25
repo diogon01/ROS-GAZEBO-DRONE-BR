@@ -65,7 +65,7 @@ namespace gazebo {
             key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z += 2));
             key->Rotation(ignition::math::Quaterniond(0, 0, 0));
             key = anim->CreateKeyFrame(frame += 5);
-            key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z += 2));
+            key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z += 2)) ;
             key->Rotation(ignition::math::Quaterniond(0, 0, 0));
             key = anim->CreateKeyFrame(frame += 5);
             key->Translation(ignition::math::Vector3d(pos_x, 0, pos_z += 2));
