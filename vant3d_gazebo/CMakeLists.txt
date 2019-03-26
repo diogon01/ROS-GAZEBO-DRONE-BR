@@ -24,6 +24,9 @@ catkin_package(
         mav_msgs
         roscpp
         sensor_msgs
+        image_transport
+        dynamic_reconfigure
+        cv_bridge
 )
 
 include_directories(include ${catkin_INCLUDE_DIRS})
@@ -38,8 +41,10 @@ target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
 # LIBRARY
 # Librery de mover a câmera
 
-add_library(compress_transport SHARED src/compressed_publisher.cpp src/compressed_subscriber.cpp src/manifest.cpp)
-add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
+add_library(compress_transport SHARED src/camera/compressed_image_transport/compressed_publisher.cpp
+                                        src/camera/compressed_image_transport/compressed_subscriber.cpp
+                                        src/camera/compressed_image_transport/manifest.cpp)
+#add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 target_link_libraries(compress_transport ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
 add_library(animated_camera SHARED src/camera/animated_camera.cc)

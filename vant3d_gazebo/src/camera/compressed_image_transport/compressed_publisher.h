@@ -5,7 +5,7 @@
 #include "image_transport/simple_publisher_plugin.h"
 #include <sensor_msgs/CompressedImage.h>
 #include <dynamic_reconfigure/server.h>
-#include <camera/compressed_image_transport/CompressedPublisherConfig.h>
+#include <CompressedPublisherConfig.h>
 
 #ifndef VANT3D_GAZEBO_COMPRESSED_PUBLISHER_H
 #define VANT3D_GAZEBO_COMPRESSED_PUBLISHER_H
@@ -24,8 +24,9 @@ namespace compressed_image_transport{
         }
     };
 
-    protected:
-    // Overridden to set up reconfigure server
+protected:
+
+    /// Overridden to set up reconfigure server
     virtual void advertiseImpl(ros::NodeHandle &nh, const std::string &base_topic, uint32_t queue_size,
                                const image_transport::SubscriberStatusCallback  &user_connect_cb,
                                const image_transport::SubscriberStatusCallback  &user_disconnect_cb,

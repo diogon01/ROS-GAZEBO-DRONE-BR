@@ -2,13 +2,13 @@
 // Created by vant3d on 25/03/19.
 //
 
-#include "compressed_image_transport/compressed_publisher.h"
+#include "compressed_publisher.h"
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <boost/make_shared.hpp>
 
-#include "compressed_image_transport/compression_common.h"
+#include "compression_common.h"
 
 #include <vector>
 #include <sstream>
@@ -64,7 +64,118 @@ namespace compressed_image_transport {
         /// Bit depth of image encondig
         int bitDepth = enc::bitDepth(message.encoding);
         int numChannels = enc::numChannels(message.encoding);
-    }
 
+        switch (encodingFormat) {
+
+            ///Caso JPEG
+            case JPEG: {
+                params[0] = CV_IMWRITE_JPEG_QUALITY;
+                params[1] = config_.jpeg_quality;
+
+                /// Update ros message format header
+                compressed.format += "; jpeg compressed ";
+
+                /// Check input format
+                if ((bitDepth == 8) || (bitDepth == 16)) {
+                    /// Target image format
+                    std::string targetFormat;
+                    if (enc::isColor(message.encoding)) {
+                        /// convert color images to BGR8 format
+                        targetFormat = "bgr8";
+                        compressed.format += targetFormat;
+                    }
+
+                    /// OpenCV-ros bridge
+                    try {
+                        boost::shared_ptr<CompressedPublisher> tracked_object;
+                        cv_bridge::CvImageConstPtr cv_ptr = cv_bridge::toCvShare(message, tracked_object, targetFormat);
+
+                        /// Compress image
+                        if (cv::imencode(".jpg", cv_ptr->image, compressed.data, params)) {
+
+                            float cRatio = (float) (cv_ptr->image.rows * cv_ptr->image.cols * cv_ptr->image.elemSize())
+                                           / (float) compressed.data.size();
+                            ROS_DEBUG("Compressed Image Transport - Codec: jpg, Compression Ratio: 1:%.2f (%lu bytes)",
+                                      cRatio, compressed.data.size());
+                        } else {
+                            ROS_ERROR("cv::imencode (jpeg) failed on input image");
+                        }
+                    }
+                    catch (cv_bridge::Exception &e) {
+                        ROS_ERROR("%s", e.what());
+                    }
+                    catch (cv::Exception &e) {
+                        ROS_ERROR("%s", e.what());
+                    }
+
+                    /// Publish message
+                    publish_fn(compressed);
+                } else
+                    ROS_ERROR(
+                            "Compressed Image Transport - JPEG compression requires 8/16-bit color format (input format is: %s)",
+                            message.encoding.c_str());
+
+                break;
+            }
+                /// PNG Compression
+            case PNG: {
+                params[0] = CV_IMWRITE_PNG_COMPRESSION;
+                params[1] = config_.png_level;
+
+                /// Update ros message format header
+                compressed.format += "; png compressed ";
+
+                /// Check input format
+                if ((bitDepth == 8) || (bitDepth == 16)) {
+
+                    /// Target image format
+                    stringstream targetFormat;
+                    if (enc::isColor(message.encoding)) {
+                        /// convert color images to RGB domain
+                        targetFormat << "bgr" << bitDepth;
+                        compressed.format += targetFormat.str();
+                    }
+
+                    /// OpenCV-ros bridge
+                    try {
+                        boost::shared_ptr<CompressedPublisher> tracked_object;
+                        cv_bridge::CvImageConstPtr cv_ptr = cv_bridge::toCvShare(message, tracked_object,
+                                                                                 targetFormat.str());
+
+                        // Compress image
+                        if (cv::imencode(".png", cv_ptr->image, compressed.data, params)) {
+
+                            float cRatio = (float) (cv_ptr->image.rows * cv_ptr->image.cols * cv_ptr->image.elemSize())
+                                           / (float) compressed.data.size();
+                            ROS_DEBUG("Compressed Image Transport - Codec: png, Compression Ratio: 1:%.2f (%lu bytes)",
+                                      cRatio, compressed.data.size());
+                        } else {
+                            ROS_ERROR("cv::imencode (png) failed on input image");
+                        }
+                    }
+                    catch (cv_bridge::Exception &e) {
+                        ROS_ERROR("%s", e.what());
+                        return;
+                    }
+                    catch (cv::Exception &e) {
+                        ROS_ERROR("%s", e.what());
+                        return;
+                    }
+
+                    // Publish message
+                    publish_fn(compressed);
+                } else
+                    ROS_ERROR(
+                            "Compressed Image Transport - PNG compression requires 8/16-bit encoded color format (input format is: %s)",
+                            message.encoding.c_str());
+                break;
+            }
+
+            default:
+                ROS_ERROR("Unknown compression type '%s', valid options are 'jpeg' and 'png'", config_.format.c_str());
+                break;
+        }
+
+    }
 
 }
