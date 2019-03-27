@@ -38,12 +38,16 @@ add_executable(velocidade src/velocidade_velodyne.cc)
 add_executable(path_publisher src/camera/path_publisher.cc)
 target_link_libraries(path_publisher ${GAZEBO_LIBRARIES})
 
+add_executable(my_subscribe src/my_subscribe.cpp)
+target_link_libraries(my_subscribe ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+
 # LIBRARY
 # Librery de mover a câmera
 
 add_library(compress_transport SHARED src/camera/compressed_image_transport/compressed_publisher.cpp
-                                        src/camera/compressed_image_transport/compressed_subscriber.cpp
-                                        src/camera/compressed_image_transport/manifest.cpp)
+        src/camera/compressed_image_transport/compressed_subscriber.cpp
+        src/camera/compressed_image_transport/manifest.cpp)
 #add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 target_link_libraries(compress_transport ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 
