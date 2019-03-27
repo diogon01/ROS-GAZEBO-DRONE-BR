@@ -1,6 +1,6 @@
 <launch>
 <!-- these are the arguments you can pass this launch file, for example paused:=true -->
-<arg name="paused" default="false"/>
+<arg name="paused" default="true"/>
 <arg name="use_sim_time" default="true"/>
 <arg name="gui" default="true"/>
 <arg name="headless" default="false"/>
@@ -14,7 +14,7 @@
 <arg name="headless" value="$(arg headless)"/>
 </include>
 <!-- urdf xml robot description loaded on the Parameter Server-->
-<param name="robot_description" command="$(find xacro)/xacro.py '$(find vehicle_robot)/urdf/diff_wheeled_robot.xacro'" />
+<param name="robot_description" command="$(find xacro)/xacro.py '$(find vant3d_gazebo)/urdf/diff_wheeled_robot.xacro'" />
 
 
 <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
