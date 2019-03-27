@@ -14,9 +14,20 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 
+find_package(PCL REQUIRED)
+
+## Adicionado a biblioteca do OpenCV
+find_package(OpenCV REQUIRED)
+
 
 # catkin configuration
-find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs cv_bridge
+        genmsg
+        image_transport
+        pcl_conversions
+        pcl_msgs
+        pcl_ros
+        std_msgs)
 
 catkin_package(
         CATKIN_DEPENDS
