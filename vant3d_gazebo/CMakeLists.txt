@@ -21,7 +21,7 @@ find_package(OpenCV REQUIRED)
 
 
 # catkin configuration
-find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp sensor_msgs cv_bridge
+find_package(catkin REQUIRED COMPONENTS gazebo_msgs geometry_msgs mav_msgs roscpp rospy sensor_msgs cv_bridge
         genmsg
         image_transport
         pcl_conversions
