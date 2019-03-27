@@ -65,6 +65,11 @@ add_executable(edge_detection_gazebo src/edge_detection_gazebo.cpp)
 target_link_libraries(edge_detection_gazebo ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 add_dependencies(edge_detection_gazebo vehicle_robot_generate_messages_cpp)
 
+# Demo do OpenCV
+add_executable(opencv_demo src/opencv_demo.cpp)
+target_link_libraries(opencv_demo ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(opencv_demo vehicle_robot_generate_messages_cpp)
+
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two
     include(FindBoost)
