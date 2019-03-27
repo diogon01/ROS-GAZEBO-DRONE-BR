@@ -60,6 +60,11 @@ add_library(velodyne_plugin SHARED src/velodyne_plugin.cc)
 target_link_libraries(velodyne_plugin ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
 
+#Leitor de linhas OpenCV
+add_executable(edge_detection_gazebo src/edge_detection_gazebo.cpp)
+target_link_libraries(edge_detection_gazebo ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(edge_detection_gazebo vehicle_robot_generate_messages_cpp)
+
 if (${gazebo_VERSION_MAJOR} LESS 6)
     # These two
     include(FindBoost)
@@ -80,3 +85,4 @@ install(TARGETS velodyne_plugin velocidade
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
         )
+
