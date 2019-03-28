@@ -18,7 +18,7 @@ public:
     Edge_Detector()
             : it_(nh_) {
         // Subscribe to input video feed and publish output video feed
-        image_sub_ = it_.subscribe("/ilyess/camera1/image_raw", 1,
+        image_sub_ = it_.subscribe("/canon/image_raw", 1,
                                    &Edge_Detector::imageCb, this);
         image_pub_ = it_.advertise("/edge_detector/raw_image", 1);
         cv::namedWindow(OPENCV_WINDOW);
@@ -83,7 +83,7 @@ public:
 
         cv::imshow(OPENCV_WINDOW, src);
         cv::imshow(OPENCV_WINDOW_1, dst);
-        cv::waitKey(3);
+        cv::waitKey(33);
 
     }
 

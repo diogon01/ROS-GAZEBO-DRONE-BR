@@ -28,8 +28,10 @@
                     </save>
                     <horizontal_fov>0.38</horizontal_fov>
                     <image>
-                        <width>5184</width>
-                        <height>3456</height>
+                        <!--<width>5184</width>-->
+                        <!--<height>3456</height>-->
+                        <width>800</width><!-- Teste de valor -->
+                        <height>600</height>
                         <format>R8G8B8</format>
                     </image>
                     <clip>
@@ -56,7 +58,7 @@
                 <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
                     <alwaysOn>true</alwaysOn>
                     <updateRate>0.0</updateRate>
-                    <cameraName>static/canon1</cameraName>
+                    <cameraName>canon</cameraName>
                     <imageTopicName>image_raw</imageTopicName>
                     <cameraInfoTopicName>canon_info</cameraInfoTopicName>
                     <frameName>camera_link</frameName>

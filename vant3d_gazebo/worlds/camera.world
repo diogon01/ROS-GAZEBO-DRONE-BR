@@ -50,8 +50,13 @@
         </light>
 
         <!-- A ground plane -->
+        <!--<include>-->
+            <!--<uri>model://sea_surface</uri>-->
+            <!--<pose>0 0 0.1 0 0 0</pose>-->
+        <!--</include>-->
+
         <include>
-            <uri>model://sea_surface</uri>
+            <uri>model://ground_plane</uri>
             <pose>0 0 0 0 0 0</pose>
         </include>
 

@@ -82,6 +82,11 @@
             <uri>model://parede_lisa</uri>
             <pose>0 10 0 0 0 0</pose>
         </include>
+        <include>
+            <uri>model://teste</uri>
+            <pose>-5 -5 0 0 0 0</pose>
+        </include>
+
 
 
         <!-- CAMERA MODEL -->
